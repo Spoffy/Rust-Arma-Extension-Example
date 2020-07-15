@@ -11,6 +11,10 @@ It supports:
 * RVExtensionArgs
 * RVExtensionRegisterCallback
 
+## Author
+
+Spoffy (https://github.com/Spoffy/Rust-Arma-Extension-Example)
+
 ## Motivation
 
 Rust is a memory-safe, fast language that, while it has a bit of a learning curve, is much less prone to weird bugs in production than C and C++ (in my opinion).
