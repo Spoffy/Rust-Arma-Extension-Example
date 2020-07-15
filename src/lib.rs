@@ -1,11 +1,9 @@
-extern crate libc;
-
-use libc::{size_t};
-
 use std::os::raw::c_char;
 use std::ffi::{CString, CStr};
 use std::str;
 use std::cmp;
+
+type size_t = usize;
 
 #[allow(non_snake_case)]
 #[no_mangle]
