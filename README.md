@@ -18,14 +18,31 @@ It has the added advantage that its standard library is cross-platform, so it's 
 
 ## Installation
 
-You'll need a rust toolchain on your platform of choice (this is left as an exercise for the reader).
+You'll need to install an appropriate rust toolchain. It's recommended to use `rustup` for this on both Windows and Linux, as you'll likely be needing to cross-compile. Also, it's really easy.
 
-Clone this package, then execute `cargo build`, to build the library as appropriate for your platform.
+Once you have a toolchain installed, clone this package, then execute `cargo build`, to build the library as appropriate for your platform.
 
-## 32-bit Windows Compilation
+If you're running on 64-bit Windows or Linux, you'll need to rename the .dll or .so to end in `\_x64.(so/dll)`. It's also recommended (but not required) to remove the 'lib' prefix on Linux, as it's not needed.
 
-To cross-compile a 32-bit Windows library on 64-bit windows, use `cargo build --target=i686-pc-windows-msvc`. 
+You then need to add your .dll or .so to the Arma server's root directory (same as where the server binary is), or into an addon. (mods/@MyExtension/MyThing.dll). I've personally found the root directory to be more reliable for testing purposes.
+
+## 32-bit Linux Compilation (Cross-Compiled)
+
+Most Linux servers these days are 64-bit. However, the Arma Linux server is typically 32-bit. As such, you'll generally need to cross-compile. 
+
+If you're using `rustup` to manage toolchains, you can just do `rustup target add i686-unknown-linux-gnu`, then build the .so using `cargo build --target=i686-unknown-linux-gnu`.
+
+## 32-bit Windows Compilation (Cross-Compiled)
+
+Firstly, you'll need to make sure you have a 32-bit toolchain. I recommend using `rustup`, so you can run `rustup target add i686-pc-windows-msvc`.
+
+To cross-compile a 32-bit Windows library on 64-bit windows, simply type `cargo build --target=i686-pc-windows-msvc`. 
+
 Only the MSVC toolchain is supported for 32-bit Windows compilation, due to the nature of the hacks needed to make it work (see .cargo/config for specifics).
+
+### 32-bit Compilation Workarounds
+
+**This is an implementation detail. If you just want to build the example, you do not need to read this section**.
 
 Broadly speaking, Windows uses "stdcall" calling conventions to call functions in the DLL. In 32-bit Windows, the symbol names for these functions are 'decorated', meaning they look something like this: `_RVExtension@12`. The @12 being the number of bytes of parameters the functions take.
 
